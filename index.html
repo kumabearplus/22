@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>瀑布流</title>
+  <style type="text/css">
+    ul,li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .ct {
+      position: relative;
+    }
+    .ct>.lists {
+      position: relative;
+      
+
+    }
+    .ct>.lists>li {
+      width: 200px;
+      margin: 10px;
+      position: absolute;
+      transition: all 1s;
+/*      display: block;
+      float: left;*/
+    }
+    .ct>.lists>.h1 {
+      height: 200px;
+      background-color: yellow;
+    }
+    .ct>.lists>.h2 {
+      height: 300px;
+      background-color: blue;
+    }
+    .ct>.lists>.h3 {
+      height: 400px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="ct">
+    <ul class="lists">
+      <li class="h1">1</li>
+      <li class="h2">2</li>
+      <li class="h3">3</li>
+      <li class="h1">4</li>
+      <li class="h3">5</li>
+      <li class="h2">6</li>
+      <li class="h2">7</li>
+      <li class="h1">8</li>
+      <li class="h1">9</li>
+      <li class="h2">10</li>
+      <li class="h1">11</li>
+      <li class="h2">12</li>
+      <li class="h1">13</li>
+      <li class="h2">14</li>
+      <li class="h3">15</li>
+      <li class="h3">16</li>
+      <li class="h3">17</li>
+      <li class="h1">18</li>
+      <li class="h1">19</li>
+      <li class="h2">20</li>
+      <li class="h2">21</li>
+      <li class="h1">22</li>
+    </ul>
+  </div>
+  <script src='jquery/jquery-3.2.1.min.js'></script>
+  <script type="text/javascript">
+
+    // waterFall()
+    // $(window).resize(function(){
+    //   waterFall()
+    // })
+
+    //$(window).resize(waterFall)
+
+    // function waterFall(){
+    //   var colNum = parseInt($('.lists').width()/$('.lists>li').width())
+    //   var listsArr = []
+
+    //   for (var i = 0; i < colNum; i++) {
+    //     listsArr[i] = 0
+    //   }
+
+    //   $('.lists>li').each(function(){
+    //     var minValue = Math.min.apply(null,listsArr)
+    //     var minIndex = listsArr.indexOf(minValue)
+    //     $(this).css({
+    //       top: listsArr[minIndex],
+    //       left: $(this).outerWidth(true)*minIndex
+    //     })
+    //     listsArr[minIndex] += $(this).outerHeight(true)
+    //   })
+    // }
+    var waterFall = (function(){
+      function init(){
+        waterFall()
+        $(window).resize(waterFall)
+      }
+      function waterFall(){
+        var colNum = parseInt($('.lists').width()/$('.lists>li').width())
+        var listsArr = []
+
+        for (var i = 0; i < colNum; i++) {
+          listsArr[i] = 0
+        }
+
+        $('.lists>li').each(function(){
+          var minValue = Math.min.apply(null,listsArr)
+          var minIndex = listsArr.indexOf(minValue)
+          $(this).css({
+            top: listsArr[minIndex],
+            left: $(this).outerWidth(true)*minIndex
+          })
+          listsArr[minIndex] += $(this).outerHeight(true)
+        })
+      }
+      return {
+        init: init
+      }
+    })()
+    waterFall.init()
+
+    //   var colNum = parseInt($('.lists').width()/$('.lists>li').width())
+    //   var listsArr = []
+    //   for (var i = 0; i < colNum; i++) {
+    //     listsArr[i] = 0
+    //   }
+    //   $('.lists>li').each(function(){
+    //     var minValue = Math.min.apply(null,listsArr)
+    //     var minIndex = listsArr.indexOf(minValue)
+    //     $(this).css({
+    //       top: listsArr[minIndex],
+    //       left: $(this).outerWidth(true)*minIndex
+    //     })
+    //     listsArr[minIndex] += $(this).outerHeight(true)
+    // })
+
+  </script>
+</body>
+</html>
